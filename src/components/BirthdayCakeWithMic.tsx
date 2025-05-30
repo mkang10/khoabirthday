@@ -31,7 +31,7 @@ const BirthdayCakeWithMic: React.FC = () => {
                 analyserRef.current.getByteFrequencyData(dataArrayRef.current);
                 const volume = dataArrayRef.current.reduce((a, b) => a + b, 0) / dataArrayRef.current.length;
 
-                if (volume > 50 && candlesLit) {
+                if (volume > 10 && candlesLit) {
                     setCandlesLit(false);
                     setShowFireworks(true);
                     
