@@ -1,0 +1,235 @@
+/* --- Google Fonts with Latin Extended & Vietnamese support --- */
+@import url("https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap&subset=latin-ext,vietnamese");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap&subset=latin-ext,vietnamese");
+@import url("https://fonts.googleapis.com/css2?family=Paprika&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap&subset=latin-ext,vietnamese");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap&subset=latin-ext,vietnamese");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Poppins", "Inria Serif", "Paprika", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, 
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    line-height: 1.6;
+        font-family: var(--font-main);
+
+}
+
+
+  /* Light mode: màu chữ chung */
+  h1, h2, h3, h4, h5, h6, p, span, button, input, textarea {
+    @apply text-dark_primary;
+  }
+
+  h1 {
+    @apply font-Inria text-6xl font-extrabold;
+  }
+
+  h2 {
+    @apply font-Inria text-5xl font-bold;
+  }
+
+  h3 {
+    @apply font-Paprika text-4xl;
+  }
+
+  h4 {
+    @apply font-Paprika text-3xl leading-snug;
+  }
+
+  h5 {
+    @apply font-Poppins text-2xl font-semibold;
+  }
+
+  h6 {
+    @apply font-Paprika font-bold text-xl;
+  }
+
+  p {
+    @apply font-Poppins text-base;
+  }
+
+  button {
+    @apply font-Poppins;
+  }
+
+
+
+  input,
+  textarea {
+    @apply bg-transparent outline-none font-Poppins;
+  }
+
+  /* --- Dark mode bổ sung --- */
+  .dark body {
+    background-color: #0D131F; /* nền tối sâu */
+    color: #E1E8F0;            /* chữ sáng dễ đọc */
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+  .dark p, .dark span, .dark button, .dark input, .dark textarea {
+    color: #E1E8F0;
+  }
+
+  .dark h1 { color: #FFFAFA; }
+  .dark h2 { color: #F0F8FF; }
+  .dark h3 { color: #E6E6FA; }
+  .dark h4 { color: #D8BFD8; }
+  .dark h5 { color: #D3D3D3; }
+  .dark h6 { color: #C0C0C0; }
+
+  .dark input,
+  .dark textarea {
+    background-color: #1E2733; /* ô nhập tối */
+    border-color: #303C4D;
+    color: #E1E8F0;
+  }
+
+  .dark button {
+    background-color: transparent;
+    color: #E1E8F0;
+  }
+
+  /* --- Language-based font preferences --- */
+  .lang-vi body {
+    font-family: "Noto Sans", "Poppins", "Inria Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, 
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+  .lang-en body {
+    font-family: "Poppins", "Paprika", "Inria Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .lang-vi h1, .lang-vi h2, .lang-vi h3, .lang-vi h4, .lang-vi h5, .lang-vi h6 {
+    /* Sử dụng Noto Serif cho tiêu đề tiếng Việt sắc nét và hỗ trợ dấu */
+    font-family: "Noto Serif", serif;
+  }
+  .lang-en h1, .lang-en h2, .lang-en h3, .lang-en h4, .lang-en h5, .lang-en h6 {
+    font-family: "Paprika", cursive;
+  }
+}
+
+@layer utilities {
+  /* Light mode utilities */
+  .btn {
+    @apply py-2 px-6 border-2 rounded-md border-dark_primary rounded-br-3xl font-medium;
+  }
+  .hover-effect:hover {
+    @apply bg-dark_primary text-white scale-105;
+  }
+
+  .title {
+    @apply font-Inria;
+  }
+
+  .subtitle {
+    @apply font-Paprika text-gray;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-Inria {
+    font-family: "Inria Serif", serif;
+  }
+
+  .font-Poppins {
+    font-family: "Poppins", sans-serif;
+  }
+
+  /* Swiper pagination bullets */
+  .swiper-pagination-bullet {
+    @apply w-3 h-3 bg-dark_primary;
+  }
+
+  /* --- Dark mode cho utilities --- */
+  .dark .btn {
+    border-color: #4B5563;      /* xám đậm */
+    color: #E1E8F0;
+  }
+  .dark .btn:hover {
+    background-color: #1F2937;  /* hover nền đậm hơn */
+    color: #FFFFFF;
+  }
+  .dark .hover-effect:hover {
+    @apply bg-white/10 text-white scale-105; /* hover nhẹ trên nền tối */
+  }
+  .dark .subtitle {
+    color: #A0AEC0; /* xám nhạt */
+  }
+  .dark .swiper-pagination-bullet {
+    background-color: #E1E8F0;
+    opacity: 0.5;
+  }
+}
+
+/* Light mode (default) */
+.swiper-pagination-bullet {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  opacity: 0.5;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Dark mode */
+.dark .swiper-pagination-bullet {
+  background-color: #fff;
+  opacity: 0.4;
+}
+.dark .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Autofill styles (giữ nguyên) */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+}
+
+/* Biến CSS cho màu nền và chữ, dùng nếu bạn cần */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+:root {
+    --font-main: "Poppins", "Inria Serif", "Paprika", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, 
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+:root {
+  /* Light mode palette */
+  --color-bg-section: #F5F9FD;
+  --color-text-primary: #06223F;
+  --color-card-bg: #FFFFFF;
+  --color-card-border: #CBD5E1; /* slate-200 */
+  --color-hover-overlay: rgba(0,0,0,0.05);
+}
+
+.dark {
+  /* Dark mode palette */
+  --color-bg-section: #0D131F;
+  --color-text-primary: #E1E8F0;
+  --color-card-bg: #1E2733;
+  --color-card-border: #303C4D;
+  --color-hover-overlay: rgba(255,255,255,0.1);
+}
