@@ -26,7 +26,7 @@ const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) =>
     pos2: { top: number; left: number; size: number }
   ) => {
     // Khoảng cách tối thiểu giữa 2 ảnh để không chồng nhau (theo px)
-    const minDistance = 80; // bạn điều chỉnh tùy size ảnh
+    const minDistance = 120; // bạn điều chỉnh tùy size ảnh
     const dx = pos1.left - pos2.left;
     const dy = pos1.top - pos2.top;
     return Math.sqrt(dx * dx + dy * dy) < minDistance;
