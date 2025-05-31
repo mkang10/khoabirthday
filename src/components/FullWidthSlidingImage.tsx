@@ -13,19 +13,61 @@ const smallImages = [
   "https://res.cloudinary.com/dvbbfcxdz/image/upload/v1748634873/Screenshot_2025-05-31_022857-removebg-preview_kqnsif.png",
   "https://res.cloudinary.com/dvbbfcxdz/image/upload/v1748634872/Anhthien-removebg-preview_imvttd.png",
   "https://res.cloudinary.com/dvbbfcxdz/image/upload/v1748634871/5552a5f1-d599-4e47-b62e-dcaf5bd0ed78-removebg-preview_bmfhdi.png",
-
-
-  // Thêm ảnh bạn bè khác vào đây nếu muốn
 ];
 
 const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) => {
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
   const randomPositions = useMemo(() => {
-    return smallImages.map(() => ({
-      top: `${Math.random() * 80 + 10}%`,
-      left: `${Math.random() * 80 + 10}%`,
-      size: `${20 + Math.random() * 30}px`,
-    }));
-  }, []);
+  const positions: { top: number; left: number; size: number }[] = [];
+
+  const isOverlap = (
+    pos1: { top: number; left: number; size: number },
+    pos2: { top: number; left: number; size: number }
+  ) => {
+    // Khoảng cách tối thiểu giữa 2 ảnh để không chồng nhau (theo px)
+    const minDistance = 80; // bạn điều chỉnh tùy size ảnh
+    const dx = pos1.left - pos2.left;
+    const dy = pos1.top - pos2.top;
+    return Math.sqrt(dx * dx + dy * dy) < minDistance;
+  };
+
+  for (let i = 0; i < smallImages.length; i++) {
+    let tries = 0;
+    let top: number;
+    let left: number;
+    let sizePx: number;
+
+    do {
+      top = Math.random() * 70 + 10; // % theo chiều cao
+      left = Math.random() * 70 + 10; // % theo chiều rộng
+      sizePx = isMobile
+  ? 100  // Mobile: cố định 100px
+  : 90;  // Desktop: cố định 90px
+
+      tries++;
+      if (tries > 50) break; // tránh vòng lặp vô tận
+    } while (
+      positions.some(
+        (pos) =>
+          isOverlap(
+            { top, left, size: sizePx },
+            { top: pos.top, left: pos.left, size: pos.size }
+          )
+      )
+    );
+
+    positions.push({ top, left, size: sizePx });
+  }
+
+  // Convert % top,left thành string để dùng inline style
+  return positions.map((pos) => ({
+    top: `${pos.top}%`,
+    left: `${pos.left}%`,
+    size: `${pos.size}px`,
+  }));
+}, [isMobile]);
+
 
   return (
     <div
@@ -40,6 +82,7 @@ const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) =>
         zIndex: 1,
       }}
     >
+      {/* Ảnh lớn trượt qua màn hình */}
       <motion.img
         src={src}
         alt="Sliding Image"
@@ -51,7 +94,7 @@ const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) =>
           objectFit: "contain",
           userSelect: "none",
           pointerEvents: "none",
-          zIndex: 10,  // Đảm bảo ảnh lớn nằm trên ảnh nhỏ
+          zIndex: 10,
         }}
         animate={{
           x: ["-100%", "100%"],
@@ -59,12 +102,12 @@ const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) =>
         transition={{
           repeat: Infinity,
           repeatType: "reverse",
-          duration: 5,
+          duration: 1,
           ease: "linear",
         }}
       />
 
-      {/* Ảnh nhỏ */}
+      {/* Ảnh nhỏ nổi bật và bay nhẹ nhàng */}
       {smallImages.map((imgSrc, idx) => {
         const { top, left, size } = randomPositions[idx];
         return (
@@ -82,14 +125,19 @@ const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) =>
               objectFit: "cover",
               userSelect: "none",
               pointerEvents: "none",
-              boxShadow: "0 0 8px rgba(255,255,255,0.7)",
-              filter: "drop-shadow(0 0 4px rgba(255,255,255,0.5))",
-              zIndex: 1,  // Ảnh nhỏ nằm dưới ảnh lớn
+              boxShadow: "0 0 10px rgba(255,255,255,0.8)",
+              filter: "drop-shadow(0 0 4px rgba(255,255,255,0.7))",
+              zIndex: 1,
             }}
-            initial={{ opacity: 0, scale: 10 }}
-            animate={{ opacity: 1, scale: [1, 10, 1] }} // scale lớn lên rồi thu nhỏ lại
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{
+              opacity: 1,
+              scale: [1, 1.3, 1],
+              y: [0, -10, 0],
+              rotate: [0, 5, -5, 0],
+            }}
             transition={{
-              delay: idx * 0.5,
+              delay: idx * 0.4,
               duration: 3,
               repeat: Infinity,
               repeatType: "loop",
@@ -98,7 +146,6 @@ const FullWidthSlidingImage: React.FC<FullWidthSlidingImageProps> = ({ src }) =>
           />
         );
       })}
-
     </div>
   );
 };

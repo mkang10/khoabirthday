@@ -129,9 +129,11 @@ const BirthdayCakeWithMic: React.FC = () => {
                         >
                             ✨ Khoa đã thổi nến ! ✨
                         </motion.p>
-                        <audio ref={audioRef} src="/assets/audio/Download.mp3" preload="auto" />
-
-                        <FullWidthSlidingImage src={imageSrc} />
+                        {/* <audio ref={audioRef} src="/assets/audio/Download.mp3" preload="auto" /> */}
+<div className="z-50 relative ">
+  <FullWidthSlidingImage src={imageSrc} />
+</div>
+                    
 
                         {/* Hiển thị ảnh bạn */}
 
@@ -176,7 +178,7 @@ const BirthdayCakeWithMic: React.FC = () => {
             )}
 
             {/* Bánh kem sát dưới */}
-            <div className="relative z-10 mb-6 flex flex-col items-center">
+            <div className="relative  mb-6 flex flex-col items-center z-0">
                 <div className="relative w-[320px] h-24 bg-gradient-to-b from-pink-300 to-pink-500 rounded-t-3xl shadow-[inset_0_6px_20px_rgba(255,182,193,0.9)]">
                     {/* Lớp topping kem sáng */}
                     <div className="absolute top-0 left-0 w-full h-4 bg-white rounded-t-3xl opacity-60 shadow-[0_0_10px_#fff]" />
